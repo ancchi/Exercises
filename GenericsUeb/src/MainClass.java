@@ -5,8 +5,12 @@ public class MainClass {
 
     public static void main(String[] args) {
 
-        SimpleExample simpleEx = new SimpleExample();
-        simpleEx.simple();
+//        SimpleExample simpleEx = new SimpleExample();
+//        simpleEx.simple();
+
+
+        GenericMethodCall genMethodCall = new GenericMethodCall();
+        genMethodCall.callMethod();
 
 
     }
