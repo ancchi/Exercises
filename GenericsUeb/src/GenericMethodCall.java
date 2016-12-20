@@ -20,6 +20,9 @@ public class GenericMethodCall {
         genMethod.printArray(stringArray);
 
 
+        String s = genMethod.random("Analogkäse", "Bloedsinn-Schinken");
+        System.out.println(s);
+
     }
 
 

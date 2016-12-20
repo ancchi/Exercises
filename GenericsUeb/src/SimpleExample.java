@@ -1,9 +1,13 @@
+import java.util.Collection;
+import java.util.List;
+
 /**
  * Created by afischer on 15/12/2016.
  */
 public class SimpleExample {
 
     public void simple() {
+
 
         Player player = new Player();
         player.name = "Michael Mittendrin"; // schlechter Stil mit Zeiger auf public Variable zu arbeiten (besser getter und setter)
