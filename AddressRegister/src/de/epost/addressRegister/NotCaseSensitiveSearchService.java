@@ -38,7 +38,7 @@ public class NotCaseSensitiveSearchService implements SearchService {
     }
 
     @Override
-    public void updateDatabase(Map<String, Address> newDatabase) {
+    public void updateDatabase(Map<String, Address> newDatabase) {  // erhält die Map schon bei der Eingabe der Daten
         // Map wird in TreeMap reingegeben
         addressMapNotSensitive = new TreeMap<String, Address>(String.CASE_INSENSITIVE_ORDER);
 //        this.addressMapNotSensitive.putAll(newDatabase);

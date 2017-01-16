@@ -19,7 +19,7 @@ public class Menue {
 
     public Menue() {
        keyReader = new Scanner(System.in);  // an weitere Klassen weiterreichen
-        addressMap = new HashMap<>();
+       addressMap = new HashMap<>();
        input = new Input(keyReader);
        output = new Output(addressMap);
        output = new Output(addressMap, keyReader); // Konstruktor überladen
@@ -42,7 +42,7 @@ public class Menue {
         switch(option) {
             case("1"):
                 Address newAddress = input.receiveInput();
-                addressMap.put(newAddress.getLastName(), newAddress);
+                addressMap.put(newAddress.getLastName(), newAddress);  // (key, Datentyp)
                 output.getCaseSensitiveSearchService().updateDatabase(addressMap);   // HashMap updaten
                 output.getNotCaseSensitiveSearchService().updateDatabase(addressMap);
                 break;

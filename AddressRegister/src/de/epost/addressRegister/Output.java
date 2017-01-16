@@ -59,12 +59,16 @@ public class Output {
     }
 
 
-    public NotCaseSensitiveSearchService getNotCaseSensitiveSearchService() {
-        return notCaseSensitiveSearchService;
-    }
-
     public CaseSensitiveSearchService getCaseSensitiveSearchService() {
         return caseSensitiveSearchService;
     }
+
+
+    public NotCaseSensitiveSearchService getNotCaseSensitiveSearchService() {
+
+        return notCaseSensitiveSearchService;
+    }
+
+
 
 }
