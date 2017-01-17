@@ -11,7 +11,7 @@ import java.util.Set;
  */
 public class CaseSensitiveSearchService implements SearchService{
 
-    HashMap<String, Address> addressMap;
+    HashMap<String, Address> addressMap = new HashMap<>();  // leere Initialisierung, damit keine NullPointerexception, wenn noch kein Eintrag
     String address;
     String key;
 
@@ -33,7 +33,8 @@ public class CaseSensitiveSearchService implements SearchService{
         address = "";
         while (setIterator.hasNext()) {
             Map.Entry<String, Address> mentry = (Map.Entry) setIterator.next();
-            if (mentry.getValue().getPrename().contains(preName)) {
+            //if (mentry.getValue().getPrename().contains(preName)) {
+                if (mentry.getValue().getPrename().equals(preName)) {
                 address = mentry.getValue().toString();     // der String aus der Bean wird zurückgegeben
             }
         }
@@ -61,7 +62,7 @@ public class CaseSensitiveSearchService implements SearchService{
     }
 
     public void noEntry() {
-        address = "Kein Eintrag vorhanden";
+        address = "Kein Eintrag vorhanden.";
     }
 
     @Override
