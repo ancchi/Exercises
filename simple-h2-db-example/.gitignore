@@ -1,0 +1,5 @@
+work/*.db
+.idea/
+*.iml
+.DS_Store
+out/
