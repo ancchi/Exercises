@@ -24,7 +24,7 @@ public class TodoListItemDao extends AbstractDao<TodoListItem>{
 
         try {
 //            String queryString = "SELECT * FROM todo_list WHERE id = " + id;  // Konkatenation ist unsicher!!
-            String queryString = "SELECT * FROM todo_list WHERE id = ?";
+            String queryString = "SELECT * FROM todo_list WHERE id_todo = ?";
             preparedStatement = con.prepareStatement(queryString);
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
@@ -32,10 +32,13 @@ public class TodoListItemDao extends AbstractDao<TodoListItem>{
 
             while(resultSet.next()) {
                 TodoListItem item = new TodoListItem(
-                        resultSet.getLong("id"),
+                        resultSet.getLong("id_todo"),
                         resultSet.getString("task"),
                         toBoolean(resultSet.getInt("done")),
-                        resultSet.getTimestamp("created_at"), resultSet.getTimestamp("modified_at"));
+                        resultSet.getTimestamp("created_at"),
+                        resultSet.getTimestamp("modified_at"),
+                        resultSet.getLong(("id_cat"))
+                );
                 idFinding = item;
             }
 
@@ -61,11 +64,12 @@ public class TodoListItemDao extends AbstractDao<TodoListItem>{
 
             while (resultSet.next()) {
                 final TodoListItem item = new TodoListItem(
-                        resultSet.getLong("id"),
+                        resultSet.getLong("id_todo"),
                         resultSet.getString("task"),
                         toBoolean(resultSet.getInt("done")),
                         resultSet.getTimestamp("created_at"),
-                        resultSet.getTimestamp("modified_at")
+                        resultSet.getTimestamp("modified_at"),
+                        resultSet.getLong("id_cat")
                 );
 
                 items.add(item);
@@ -103,7 +107,7 @@ public class TodoListItemDao extends AbstractDao<TodoListItem>{
 
         // TODO setID ist überflüssig
         try {                                          // Spalten angeben, weil id weggelassen!!
-            String queryString = "INSERT INTO todo_list (task, done, created_at, modified_at) VALUES (?, ?, ?, ?)";
+            String queryString = "INSERT INTO todo_list (task, done, created_at, modified_at, id_cat) VALUES (?, ?, ?, ?, ?)";
 
             preparedStatement = con.prepareStatement(queryString);
 
@@ -111,10 +115,11 @@ public class TodoListItemDao extends AbstractDao<TodoListItem>{
             preparedStatement.setBoolean(2, entity.isDone());
             preparedStatement.setTimestamp(3, entity.getCreatedAt());
             preparedStatement.setTimestamp(4, entity.getModifiedAt());
-
+            preparedStatement.setLong(5, entity.getIdCat());
             preparedStatement.execute();
 
-            savedItem = findById(entity.getId());  // nur für die Ausgabe
+//            savedItem = findById(entity.getIdTodo());  // nur für die Ausgabe
+//            System.out.println("Entity-ID: " + entity.getIdTodo()); // id ist 0 -> Ausgabe an dieser Stelle so nicht möglich
 
         } catch (SQLException e) {
                     e.printStackTrace();
@@ -133,12 +138,13 @@ public class TodoListItemDao extends AbstractDao<TodoListItem>{
         con = getConnection();
 
         try {
-            String updateString = "UPDATE todo_list SET task = ?, done = ?, modified_at= ? WHERE id = ?";
+            String updateString = "UPDATE todo_list SET task = ?, done = ?, modified_at = ?, id_cat = ? WHERE id_todo = ?";
             preparedStatement = con.prepareStatement(updateString);
             preparedStatement.setString(1, entity.getTask());
             preparedStatement.setBoolean(2, entity.isDone());
             preparedStatement.setTimestamp(3, entity.getCreatedAt());
-            preparedStatement.setLong(4, entity.getId());
+            preparedStatement.setLong(4, entity.getIdCat());
+            preparedStatement.setLong(5, entity.getIdTodo());
 
             preparedStatement.execute();
 
@@ -154,7 +160,7 @@ public class TodoListItemDao extends AbstractDao<TodoListItem>{
         con = getConnection();
 
         try {
-            String deleteEntity = "DELETE FROM todo_list WHERE id = ?";
+            String deleteEntity = "DELETE FROM todo_list WHERE id_todo = ?";
             preparedStatement = con.prepareStatement(deleteEntity);
             preparedStatement.setLong(1, id);
             preparedStatement.execute();

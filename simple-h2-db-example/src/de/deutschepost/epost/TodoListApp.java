@@ -11,6 +11,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.sql.Timestamp;
+import java.util.Scanner;
 //import org.joda.time.DateTime;
 
 public class TodoListApp {
@@ -23,60 +24,119 @@ public class TodoListApp {
         createSchema(connection);  // Schema der Datenbank
         insertData(connection);    // Einfügen in Datenbank
 
-        /**
-         * die Liste hat den Parametertyp TodoListItem, das ein Objekt mit Eigenschaften ist (id, task, done)
-         * TodoListItemDao entspringt AbstractDao<ToDoListItem>
-         * AbstractDao<T> implementiert DataAccessObject<T>
-         *
-         * ToDoListItemDao - Aufgabe: enthält die Abfragen der Datenbank
-         *
-         * AbstractDao<T> - Aufgabe:
-         *
-         * DataAccessObject - Aufgabe:
-         *
-         */
-
-        final List<TodoListItem> all1 = new TodoListItemDao().findAll();
-        System.out.println("\nAusgabe der gesamten Tabelle:");
-        for (TodoListItem todoListItem : all1) {
-            System.out.println(todoListItem);
-        }
-
-        System.out.println("");
-        long id = 1;
-        final TodoListItem byID = new TodoListItemDao().findById(id);
-        System.out.println("Eintrag für ID " + id + ": \n" + byID + "\n");
-
-        // saving
         Date date = new Date();                               // java.util.Date
         Timestamp timestamp = new Timestamp(date.getTime());  // java.sql.Timestamp
-                                                // automatisches Inkrementieren -> '0' wird zu NULL in SQL --> ist das üblich???
-        TodoListItem saveEntity = new TodoListItem(0, "Immer noch alles gut.", false, timestamp, timestamp);
-        final TodoListItem savedItem = new TodoListItemDao().save(saveEntity);
-        System.out.println("Neue gespeicherte Entity: \n" + savedItem + "\n");
 
-        TodoListItem updateEntity = new TodoListItem(6, "Der Eintrag wurde geändert.", true, timestamp, timestamp);
-        final TodoListItemDao updateItem = new TodoListItemDao();
-        updateItem.update(updateEntity);
+        /**
+         * TodoListItemDao
+         */
 
-        final List<TodoListItem> all2 = new TodoListItemDao().findAll();
-        System.out.println("\nAusgabe der gesamten Tabelle:");
-        for (TodoListItem todoListItem : all2) {
-            System.out.println(todoListItem);
+//
+
+//        // TODO Input implementieren
+//        InputData input = new InputData();
+//        String todoItem = input.inputTodo();
+//        boolean status = input.inputStatus();
+
+//        // saving
+//        String todoItem = "Ein Glas holen.";
+//        boolean status = true;
+//        TodoListItem saveEntity = new TodoListItem(todoItem, status, timestamp, timestamp, 7);
+//        final TodoListItem savedItem = new TodoListItemDao().save(saveEntity);
+////        System.out.println("\nNeue gespeicherte Entity: \n" + savedItem + "\n");
+//
+//        // find by id
+//        System.out.println("");
+//        long id = 1;
+//        final TodoListItem byID = new TodoListItemDao().findById(id);
+//        System.out.println("Eintrag für ID " + id + ": \n" + byID + "\n");
+////
+//        // update
+//        TodoListItem updateEntity = new TodoListItem(6, "Den Eintrag ändern.", true, timestamp, timestamp, 2);
+//        final TodoListItemDao updateItemTodo = new TodoListItemDao();
+//        updateItemTodo.update(updateEntity);
+//
+//
+//        // delete
+//        long deleteID = 9;  // nur id (Interface und Implementierung)
+//        final TodoListItemDao deleteItem = new TodoListItemDao();
+//        deleteItem.delete(deleteID);
+//
+//        // findall
+//        final List<TodoListItem> all3 = new TodoListItemDao().findAll();
+//        System.out.println("\nAusgabe der gesamten TODO-Tabelle:");
+//        for (TodoListItem todoListItem : all3) {
+//            System.out.println(todoListItem);
+//        }
+
+
+
+
+        /**
+         * CategoryDao
+         */
+
+        // find by id
+//        long idCat = 2;
+//        final CategoryItem categoryItem = new CategoryItemDao().findById(idCat);
+//        System.out.print("\nKategorie für die id " + idCat + ":");
+//        System.out.println(" " + categoryItem);
+
+//
+//        // save
+//        final CategoryItem entity = new CategoryItem("Arbeit", timestamp, timestamp);
+//        final CategoryItem savedItemCat = new CategoryItemDao().save(entity);
+//
+//        // update
+//        final CategoryItem entity1 = new CategoryItem(4, "Was ganz anderes", timestamp, timestamp);
+//        CategoryItemDao updateItemCat = new CategoryItemDao();
+//        updateItemCat.update(entity1);
+//
+//        // delete
+//        long idCat = 6;
+//        CategoryItemDao deleteItemCat = new CategoryItemDao();
+//        deleteItem.delete(id);
+//
+//        // find all
+//        final List<CategoryItem> catList = new CategoryItemDao().findAll();
+//        System.out.println("\nAlle Kategorien:\n");
+//        for (CategoryItem category : catList) {
+//            System.out.println(category);
+//        }
+
+//        // findTodosForOneCategory  - alles -> 1. Möglichkeit -> Abfrage ohne explizite JOINs
+        String category = "Politik";
+        final List<TodoListItem> todoIsItDoneList = new CategoryItemDao().findTodosForOneCategory(category);
+        System.out.println("\nTasks für die Kategorie " + category + ":");
+        for(TodoListItem todoListItem : todoIsItDoneList) {
+            String done;
+            if (todoListItem.isDone() == true) {
+                done = "erledigt";
+            } else {
+                done = "offen";
+            }
+            System.out.println(todoListItem.getTask() + ", " + done);
         }
 
-        long deleteID = 9;  // nur id (Interface und Implementierung)
-        final TodoListItemDao deleteItem = new TodoListItemDao();
-        deleteItem.delete(deleteID);
 
-        final List<TodoListItem> all3 = new TodoListItemDao().findAll();
-        System.out.println("\nAusgabe der gesamten Tabelle:");
-        for (TodoListItem todoListItem : all3) {
-            System.out.println(todoListItem);
+
+        // findByID - 2. Möglichkeit -> Abfrage mit expliziten JOINs
+        CategoryItem categoryItem  = new CategoryItemDao().findById(2L);
+
+        //category.getTodoListItems();
+
+        System.out.println("\n" + categoryItem.getCategory());
+
+        for (TodoListItem todoListItem : categoryItem.getTodoListItems()) {
+            String done;
+            if (todoListItem.isDone() == true) {
+                done = "erledigt";
+            } else {
+                done = "offen";
+            }
+            System.out.println(todoListItem.getTask() + ", " + done);
         }
 
-//        Timestamp time = new java.sql.Timestamp(System.currentTimeMillis());
-//        System.out.println(time);
 
     }
 

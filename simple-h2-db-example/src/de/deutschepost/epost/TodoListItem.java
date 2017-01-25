@@ -5,7 +5,7 @@ import java.text.SimpleDateFormat;
 
 public class TodoListItem {
 
-    private Long id;
+    private Long idTodo;
     private String task;
 
     // mapped to database using: 1 => true
@@ -13,21 +13,46 @@ public class TodoListItem {
     private boolean done;
     private Timestamp createdAt;
     private Timestamp modifiedAt;
+    private Long idCat;
 
 
 
-    public TodoListItem(long id, String task, boolean done, Timestamp createdAt, Timestamp modifiedAt) {
-        this.id = id;
+    public static final String FORM = "MM/dd/yyyy HH:mm:ss"; // public, um es noch woanders benutzen zu können
+
+
+    public TodoListItem() {}
+
+    public TodoListItem(String task, boolean done, Timestamp createdAt, Timestamp modifiedAt, long idCat) {
         this.task = task;
         this.done = done;
         this.createdAt = createdAt;
         this.modifiedAt = modifiedAt;
+        this.idCat = idCat;
+    }
+
+    public TodoListItem(long idTodo, String task, boolean done, Timestamp createdAt, Timestamp modifiedAt, long idCat) {
+        this.idTodo = idTodo;
+        this.task = task;
+        this.done = done;
+        this.createdAt = createdAt;
+        this.modifiedAt = modifiedAt;
+        this.idCat = idCat;
+    }
+
+    public TodoListItem(String task, boolean done) {
+        this.task = task;
+        this.done = done;
     }
 
 
+    public TodoListItem(String task, Timestamp createdAt, Timestamp modifiedAt) {
+        this.task = task;
+        this.createdAt = createdAt;
+        this.modifiedAt = modifiedAt;
+    }
 
-    public Long getId() {
-        return id;
+    public Long getIdTodo() {
+        return idTodo;
     }
 
     public String getTask() {
@@ -42,8 +67,8 @@ public class TodoListItem {
 
     public Timestamp getModifiedAt() {return modifiedAt; }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdTodo(Long idTodo) {
+        this.idTodo = idTodo;
     }
 
     public void setTask(String task) {
@@ -58,6 +83,16 @@ public class TodoListItem {
 
     public void setModifiedAT() { this.modifiedAt = modifiedAt; }
 
+
+    public Long getIdCat() {
+        return idCat;
+    }
+
+    public void setIdCat(Long idCat) {
+        this.idCat = idCat;
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -65,24 +100,25 @@ public class TodoListItem {
 
         TodoListItem that = (TodoListItem) o;
 
-        return id != null ? id.equals(that.id) : that.id == null;
+        return idTodo != null ? idTodo.equals(that.idTodo) : that.idTodo == null;
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        return idTodo != null ? idTodo.hashCode() : 0;
     }
 
     @Override
     public String toString() {
-        String form1 = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(createdAt);
-        String form2 = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(modifiedAt);
+        String created = new SimpleDateFormat(FORM).format(createdAt);
+        String modified = new SimpleDateFormat(FORM).format(modifiedAt);
         return "TodoListItem{" +
-                "id=" + id +
+                "idTodo=" + idTodo +
                 ", task='" + task + '\'' +
                 ", done=" + done +
-                ", createdAT=" + form1 +
-                ", modifiedAT=" + form2 +
+                ", createdAT=" + created +
+                ", modifiedAT=" + modified +
+                ", category=" + idCat +
                 '}';
     }
 }
