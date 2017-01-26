@@ -1,7 +1,8 @@
 
-package de.epost.addressRegister;
+package de.deutschepost.epost.addressRegister;
 
-import de.epost.addressRegister.model.Address;
+import de.deutschepost.epost.addressRegister.model.Address;
+import de.deutschepost.epost.addressRegister.services.Output;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,6 +1,5 @@
-import de.epost.addressRegister.CaseSensitiveSearchService;
-import de.epost.addressRegister.NotCaseSensitiveSearchService;
-import de.epost.addressRegister.model.Address;
+import de.deutschepost.epost.addressRegister.persistence.InsensitiveSearchDao;
+import de.deutschepost.epost.addressRegister.model.Address;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -19,7 +18,7 @@ public class NotCaseSensitiveSearchServiceTest {
     @Test
     public void testSearchServiceWithPrename() {
         twoEntriesForTheMap();
-        NotCaseSensitiveSearchService notCaseSensitiveSearchService = new NotCaseSensitiveSearchService();
+        InsensitiveSearchDao notCaseSensitiveSearchService = new InsensitiveSearchDao();
         notCaseSensitiveSearchService.updateDatabase(addressMap);
         // assertEquals("eigene Message nur innerhalb des Tests", "Erwartetes Ergebnis", "Wirkliches Ergebnis")
         assertEquals("Adresse anhand des Vornamens nicht gefunden","Wolfgang Hansen", notCaseSensitiveSearchService.
@@ -30,7 +29,7 @@ public class NotCaseSensitiveSearchServiceTest {
     @Test
     public void testSearchServiceWithPrenameCaseInsensitive() {
         twoEntriesForTheMap();
-        NotCaseSensitiveSearchService notCaseSensitiveSearchService = new NotCaseSensitiveSearchService();
+        InsensitiveSearchDao notCaseSensitiveSearchService = new InsensitiveSearchDao();
         notCaseSensitiveSearchService.updateDatabase(addressMap);
         assertEquals("Addresse aufgrund Groß-/Kleinschreibung nicht gefunden.", "Susanne Liebig", notCaseSensitiveSearchService.
                 searchByPrename("SusAnNe"));
@@ -39,7 +38,7 @@ public class NotCaseSensitiveSearchServiceTest {
     @Test
     public void testSearchServiceWithLastname() {
         twoEntriesForTheMap();
-        NotCaseSensitiveSearchService notCaseSensitiveSearchService = new NotCaseSensitiveSearchService();
+        InsensitiveSearchDao notCaseSensitiveSearchService = new InsensitiveSearchDao();
         notCaseSensitiveSearchService.updateDatabase(addressMap);
         assertEquals("Adresse anhand des Vornamens nicht gefunden","Susanne Liebig", notCaseSensitiveSearchService.
                 searchByLastName("Liebig"));
@@ -48,7 +47,7 @@ public class NotCaseSensitiveSearchServiceTest {
     @Test
     public void testSearchServiceWithLastnameCaseInsensitive() {
         twoEntriesForTheMap();
-        NotCaseSensitiveSearchService notCaseSensitiveSearchService = new NotCaseSensitiveSearchService();
+        InsensitiveSearchDao notCaseSensitiveSearchService = new InsensitiveSearchDao();
         notCaseSensitiveSearchService.updateDatabase(addressMap);
         assertEquals("Addresse aufgrund Groß-/Kleinschreibung nicht gefunden.", "Wolfgang Hansen", notCaseSensitiveSearchService.
                 searchByLastName("hANseN"));
@@ -59,7 +58,7 @@ public class NotCaseSensitiveSearchServiceTest {
     @Test
     public void shouldNotFindEntryIfNoFittingPrename() {
         twoEntriesForTheMap();
-        NotCaseSensitiveSearchService notCaseSensitiveSearchService = new NotCaseSensitiveSearchService();
+        InsensitiveSearchDao notCaseSensitiveSearchService = new InsensitiveSearchDao();
         notCaseSensitiveSearchService.updateDatabase(addressMap);
         assertEquals("Es wurden keine passenden Einträge gefunden.", "Kein Eintrag vorhanden.",
                 notCaseSensitiveSearchService.searchByPrename("quatsch"));
@@ -69,7 +68,7 @@ public class NotCaseSensitiveSearchServiceTest {
     @Test
     public void shouldNotFindEntryIfNoFittingLastname() {
         twoEntriesForTheMap();
-        NotCaseSensitiveSearchService notCaseSensitiveSearchService = new NotCaseSensitiveSearchService();
+        InsensitiveSearchDao notCaseSensitiveSearchService = new InsensitiveSearchDao();
         notCaseSensitiveSearchService.updateDatabase(addressMap);
         assertEquals("Es wurden keine passenden Einträge gefunden.", "Kein Eintrag vorhanden.",
                 notCaseSensitiveSearchService.searchByLastName("quatsch"));
@@ -80,14 +79,14 @@ public class NotCaseSensitiveSearchServiceTest {
 
     @Test
     public void testShouldFindNothingForEmptyRegisterWithSearchByPrename() {
-        NotCaseSensitiveSearchService notCaseSensitiveSearchService = new NotCaseSensitiveSearchService();
+        InsensitiveSearchDao notCaseSensitiveSearchService = new InsensitiveSearchDao();
         String result = notCaseSensitiveSearchService.searchByPrename("irgendwas");
         assertEquals("Kein Eintrag vorhanden.", result);
     }
 
     @Test
     public void testShouldFindNothingForEmptyRegisterWithSearchByLastName() {
-        NotCaseSensitiveSearchService notCaseSensitiveSearchService = new NotCaseSensitiveSearchService();
+        InsensitiveSearchDao notCaseSensitiveSearchService = new InsensitiveSearchDao();
         String result = notCaseSensitiveSearchService.searchByLastName("irgendwas anderes");
         assertEquals("Kein Eintrag vorhanden.", result);
     }

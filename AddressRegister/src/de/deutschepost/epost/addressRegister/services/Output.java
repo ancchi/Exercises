@@ -1,31 +1,32 @@
-package de.epost.addressRegister;
+package de.deutschepost.epost.addressRegister.services;
 
-import de.epost.addressRegister.model.Address;
+import de.deutschepost.epost.addressRegister.model.Address;
+import de.deutschepost.epost.addressRegister.persistence.SensitiveSearchDao;
+import de.deutschepost.epost.addressRegister.persistence.InsensitiveSearchDao;
 
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class Output {
 
     Map<String, Address> addressMap;
-    CaseSensitiveSearchService caseSensitiveSearchService;
-    NotCaseSensitiveSearchService notCaseSensitiveSearchService;
+    SensitiveSearchDao caseSensitiveSearchService;
+    InsensitiveSearchDao notCaseSensitiveSearchService;
     Scanner input;
     String searchTerm;  // Suchwort
 
 
     public Output(Map<String, Address> addressMap) {
         this.addressMap = addressMap;
-        this.caseSensitiveSearchService = new CaseSensitiveSearchService();
-        this.notCaseSensitiveSearchService = new NotCaseSensitiveSearchService();
+        this.caseSensitiveSearchService = new SensitiveSearchDao();
+        this.notCaseSensitiveSearchService = new InsensitiveSearchDao();
     }
 
     public Output(Map<String, Address> addressMap, Scanner keyReader) {
         this.addressMap = addressMap;
         this.input = keyReader;
-        this.caseSensitiveSearchService = new CaseSensitiveSearchService();
-        this.notCaseSensitiveSearchService = new NotCaseSensitiveSearchService();
+        this.caseSensitiveSearchService = new SensitiveSearchDao();
+        this.notCaseSensitiveSearchService = new InsensitiveSearchDao();
     }
 
 
@@ -59,12 +60,12 @@ public class Output {
     }
 
 
-    public CaseSensitiveSearchService getCaseSensitiveSearchService() {
+    public SensitiveSearchDao getCaseSensitiveSearchService() {
         return caseSensitiveSearchService;
     }
 
 
-    public NotCaseSensitiveSearchService getNotCaseSensitiveSearchService() {
+    public InsensitiveSearchDao getNotCaseSensitiveSearchService() {
 
         return notCaseSensitiveSearchService;
     }

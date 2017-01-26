@@ -1,12 +1,13 @@
-package de.epost.addressRegister;
+package de.deutschepost.epost.addressRegister.persistence;
 
 
-import de.epost.addressRegister.model.Address;
+import de.deutschepost.epost.addressRegister.model.Address;
+import de.deutschepost.epost.addressRegister.services.SearchService;
 
 
 import java.util.*;
 
-public class NotCaseSensitiveSearchService implements SearchService {
+public class InsensitiveSearchDao implements SearchService {
 
 
     Map<String, Address> addressMapNotSensitive = new TreeMap<String, Address>(String.CASE_INSENSITIVE_ORDER);

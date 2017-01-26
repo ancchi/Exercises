@@ -1,5 +1,5 @@
-import de.epost.addressRegister.CaseSensitiveSearchService;
-import de.epost.addressRegister.model.Address;
+import de.deutschepost.epost.addressRegister.persistence.SensitiveSearchDao;
+import de.deutschepost.epost.addressRegister.model.Address;
 import org.junit.Test;
 
 import java.util.HashMap;
@@ -19,7 +19,7 @@ public class CaseSensitiveSearchServiceTest {
     @Test
     public void testSearchServiceWithPreName() {
         twoEntriesForTheMap();
-        CaseSensitiveSearchService caseSensitiveSearchService2 = new CaseSensitiveSearchService();
+        SensitiveSearchDao caseSensitiveSearchService2 = new SensitiveSearchDao();
         caseSensitiveSearchService2.updateDatabase(addressMap);
         // assertEquals("eigene Message nur innerhalb des Tests", "Erwartetes Ergebnis", "Wirkliches Ergebnis")
         assertEquals("Adresse anhand des Vornamens nicht gefunden","Wolfgang Hansen", caseSensitiveSearchService2.searchByPrename("Wolfgang"));
@@ -28,7 +28,7 @@ public class CaseSensitiveSearchServiceTest {
     @Test
     public void testSearchServiceWithLastName() {
         twoEntriesForTheMap();
-        CaseSensitiveSearchService caseSensitiveSearchService1 = new CaseSensitiveSearchService();
+        SensitiveSearchDao caseSensitiveSearchService1 = new SensitiveSearchDao();
         caseSensitiveSearchService1.updateDatabase(addressMap);
         assertEquals("Adresse anhand des Nachnamens nicht gefunden.","Susanne Liebig", caseSensitiveSearchService1.searchByLastName("Liebig"));
     }
@@ -37,7 +37,7 @@ public class CaseSensitiveSearchServiceTest {
     @Test
     public void testPutAllOut() {
         twoEntriesForTheMap();
-        CaseSensitiveSearchService caseSensitiveSearchService3 = new CaseSensitiveSearchService();
+        SensitiveSearchDao caseSensitiveSearchService3 = new SensitiveSearchDao();
         caseSensitiveSearchService3.updateDatabase(addressMap);
         assertEquals("Es wurden keine Adressen aus der Map ausgegeben.", "\nWolfgang Hansen\nSusanne Liebig",
                 caseSensitiveSearchService3.putAllOut());
@@ -46,7 +46,7 @@ public class CaseSensitiveSearchServiceTest {
     @Test
     public void shouldNotFindEntryIfNoFittingPrename() {
         twoEntriesForTheMap();
-        CaseSensitiveSearchService caseSensitiveSearchService3 = new CaseSensitiveSearchService();
+        SensitiveSearchDao caseSensitiveSearchService3 = new SensitiveSearchDao();
         caseSensitiveSearchService3.updateDatabase(addressMap);
         assertEquals("Es wurden keine passenden Einträge gefunden.", "Kein Eintrag vorhanden.",
                 caseSensitiveSearchService3.searchByPrename("quatsch"));
@@ -56,7 +56,7 @@ public class CaseSensitiveSearchServiceTest {
     @Test
     public void shouldNotFindEntryIfNoFittingLastname() {
         twoEntriesForTheMap();
-        CaseSensitiveSearchService caseSensitiveSearchService3 = new CaseSensitiveSearchService();
+        SensitiveSearchDao caseSensitiveSearchService3 = new SensitiveSearchDao();
         caseSensitiveSearchService3.updateDatabase(addressMap);
         assertEquals("Es wurden keine passenden Einträge gefunden.", "Kein Eintrag vorhanden.",
                 caseSensitiveSearchService3.searchByLastName("quatsch"));
@@ -66,21 +66,21 @@ public class CaseSensitiveSearchServiceTest {
 
     @Test
     public void testShouldFindNothingForEmptyRegisterWithOutputAll() {
-        CaseSensitiveSearchService caseSensitiveSearchService2 = new CaseSensitiveSearchService();
+        SensitiveSearchDao caseSensitiveSearchService2 = new SensitiveSearchDao();
         String result = caseSensitiveSearchService2.putAllOut();
         assertEquals("Kein Eintrag vorhanden.", result);
     }
 
     @Test
     public void testShouldFindNothingForEmptyRegisterWithSearchByPrename() {
-        CaseSensitiveSearchService caseSensitiveSearchService2 = new CaseSensitiveSearchService();
+        SensitiveSearchDao caseSensitiveSearchService2 = new SensitiveSearchDao();
         String result = caseSensitiveSearchService2.searchByPrename("irgendwas");
         assertEquals("Kein Eintrag vorhanden.", result);
     }
 
     @Test
     public void testShouldFindNothingForEmptyRegisterWithSearchByLastName() {
-        CaseSensitiveSearchService caseSensitiveSearchService2 = new CaseSensitiveSearchService();
+        SensitiveSearchDao caseSensitiveSearchService2 = new SensitiveSearchDao();
         String result = caseSensitiveSearchService2.searchByLastName("irgendwas anderes");
         assertEquals("Kein Eintrag vorhanden.", result);
     }

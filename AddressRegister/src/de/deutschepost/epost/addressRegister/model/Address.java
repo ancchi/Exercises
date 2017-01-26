@@ -1,5 +1,5 @@
 
-package de.epost.addressRegister.model;
+package de.deutschepost.epost.addressRegister.model;
 
 public class Address {
     private String prename;

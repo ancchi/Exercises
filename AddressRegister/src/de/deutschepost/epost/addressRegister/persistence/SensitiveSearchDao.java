@@ -1,5 +1,6 @@
-package de.epost.addressRegister;
-import de.epost.addressRegister.model.Address;
+package de.deutschepost.epost.addressRegister.persistence;
+import de.deutschepost.epost.addressRegister.model.Address;
+import de.deutschepost.epost.addressRegister.services.SearchService;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,7 +10,7 @@ import java.util.Set;
 /**
  * Created by afischer on 02/12/2016.
  */
-public class CaseSensitiveSearchService implements SearchService{
+public class SensitiveSearchDao implements SearchService {
 
     HashMap<String, Address> addressMap = new HashMap<>();  // leere Initialisierung, damit keine NullPointerexception, wenn noch kein Eintrag
     String address;

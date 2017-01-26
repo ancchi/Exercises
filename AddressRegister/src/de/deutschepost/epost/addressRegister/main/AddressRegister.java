@@ -1,4 +1,6 @@
-package de.epost.addressRegister;
+package de.deutschepost.epost.addressRegister.main;
+
+import de.deutschepost.epost.addressRegister.Menue;
 
 import java.util.Scanner;
 

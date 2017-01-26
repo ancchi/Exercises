@@ -1,8 +1,7 @@
-package de.epost.addressRegister;
+package de.deutschepost.epost.addressRegister.services;
 
-import de.epost.addressRegister.model.Address;
+import de.deutschepost.epost.addressRegister.model.Address;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -13,7 +12,7 @@ public interface SearchService {
 
     /*
     * SearchService bildet die Schnittstelle für die normale Suche und die Suche mit Case insensitive
-    * implementiert von: CaseSensitiveSearchService und NotCaseSensitiveSearchServiceTest
+    * implementiert von: SensitiveSearchDao und NotCaseSensitiveSearchServiceTest
     * */
 
     // erhält den Nachnamen als Suchkriterium und gibt die Adresse als String zurück
