@@ -3,6 +3,7 @@ package de.deutschepost.epost.addressRegister.persistence;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
 public class ConnectionFactory {
 
@@ -21,7 +22,7 @@ public class ConnectionFactory {
         }
     }
 
-    public Connection getConnection() throws Exception {
+    public Connection getConnection() throws SQLException {
         // Attempts to establish a connection to the given database URL
         return DriverManager.getConnection(connectionUrl, dbUser, dbPwd);
     }
