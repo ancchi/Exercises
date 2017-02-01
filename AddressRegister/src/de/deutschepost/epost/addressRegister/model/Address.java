@@ -2,6 +2,7 @@
 package de.deutschepost.epost.addressRegister.model;
 
 public class Address {
+
     private long addressID;
     private String prename;
     private String lastName;
@@ -13,12 +14,30 @@ public class Address {
     public Address() {}
 
     public Address(long addressID, String prename, String lastName, String street, String streetNumber, String postcode, String location) {
+        this.addressID = addressID;
         this.prename = prename;
         this.lastName = lastName;
         this.street = street;
         this.streetNumber = streetNumber;
         this.postcode = postcode;
         this.location = location;
+    }
+
+    // ohne addressID
+    public Address(String prename, String lastName, String street, String streetNumber, String postcode, String location) {
+        this.prename = prename;
+        this.lastName = lastName;
+        this.street = street;
+        this.streetNumber = streetNumber;
+        this.postcode = postcode;
+        this.location = location;
+    }
+
+    public long getAddressID() {
+        return addressID;
+    }
+
+    public void setAddressID(long addressID) {
         this.addressID = addressID;
     }
 
@@ -103,7 +122,8 @@ public class Address {
     @Override
     public String toString() {
         return "Address{" +
-                "prename='" + prename + '\'' +
+                "addressID=" + addressID + '\'' +
+                ", prename='" + prename + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", street='" + street + '\'' +
                 ", streetNumber='" + streetNumber + '\'' +

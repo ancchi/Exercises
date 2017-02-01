@@ -8,7 +8,16 @@ import java.sql.PreparedStatement;
  */
 public class Utilities {
 
+    public boolean toBoolean (int intWert) {
+        return intWert != 0;   // gibt true zurück, wenn der Wert nicht 0 ist
+    }
 
+    public int boolToInt (boolean bool) {
+        if (bool)
+            return 1;
+        else
+            return 0;
+    }
 
 
 }

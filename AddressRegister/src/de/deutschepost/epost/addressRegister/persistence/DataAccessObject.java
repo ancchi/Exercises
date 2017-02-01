@@ -20,6 +20,6 @@ public interface DataAccessObject<T> {
     void delete(long id);
 
     // ***Neu***
-    List<T> search (String searchTerm);  // soll alles finden, egal, was man eingibt
+    List<T> globalSearch (String searchTerm);  // soll alles finden, egal, was man eingibt
 
 }
