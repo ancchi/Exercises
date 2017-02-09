@@ -1,7 +1,4 @@
-import de.deutschepost.epost.addressRegister.model.Address;
-import org.junit.Test;
 
-import java.util.HashMap;
 
 import static junit.framework.TestCase.assertEquals;
 

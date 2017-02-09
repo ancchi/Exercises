@@ -109,22 +109,6 @@ public class AddressRegisterApp {
 
     }
 
-//    public void menueStart() throws FileNotFoundException, SQLException {
-//        Scanner keyReader = new Scanner(System.in);
-//        Menue menue = new Menue();
-//
-//        while (true) {
-//            menue.showMenue();
-//            String input = keyReader.next();
-//            try {
-//                menue.menueSelection(input);
-//            } catch (FileNotFoundException e) {
-//                e.printStackTrace();
-//            } catch (SQLException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
 
     public static void main(String[] args) throws FileNotFoundException, SQLException {
 
