@@ -1,0 +1,16 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="address-servlet">
+    <output-path>$PROJECT_DIR$/out/artifacts/address_servlet</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="simple-servlet-example/web/Web" />
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="simple-servlet-example" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="h2-1.4.193" />
+        </element>
+      </element>
+    </root>
+  </artifact>
+</component>

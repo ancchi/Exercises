@@ -23,9 +23,6 @@ public class ConnectionFactory {
 
 
     static final private String driverClasseName = "org.h2.Driver"; //
-//    static final private String connectionUrl = "jdbc:h2:file:./work/AddressDB;FILE_LOCK=FS";
-//    final private String connectionUrl = "jdbc:h2:/Users/afischer/IdeaProjects/Uebungen/simple-servlet-example/out/artifacts/address_servlet/WEB-INF/database/ADdressDB;";
-//final private String connectionUrl = "jdbc:h2:" + h2DBPath + ";";
         final private String connectionUrl;
 
     static final private String dbUser = "sa";
@@ -34,14 +31,7 @@ public class ConnectionFactory {
     private static ConnectionFactory connectionFactory = null;  // Singleton
 
 
-//
-//    private ConnectionFactory() {
-//        try {
-//            Class.forName(driverClasseName);
-//        } catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//    }
+
 
     public Connection getConnection() throws SQLException {
         // Attempts to establish a connection to the given database URL

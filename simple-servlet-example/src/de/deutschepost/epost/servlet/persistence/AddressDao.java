@@ -84,7 +84,6 @@ public class AddressDao extends AbstractDao<Address> {
     public void save(Address entity) {
 
         con = getConnection();
-//        Address savedAddress = new Address();
         PreparedStatement preparedStatement = null;
 
 
@@ -99,6 +98,7 @@ public class AddressDao extends AbstractDao<Address> {
             preparedStatement.setString(5, entity.getPostCode());
             preparedStatement.setString(6, entity.getLocation());
             preparedStatement.execute();
+            System.out.println("Test save:\n" + entity.getPrename() + " " + entity.getLastName());
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -106,7 +106,6 @@ public class AddressDao extends AbstractDao<Address> {
             closeConn(preparedStatement);
         }
 
-//        return savedAddress;
     }
 
 
@@ -147,7 +146,7 @@ public class AddressDao extends AbstractDao<Address> {
         try {
             String deleteAddress = "DELETE FROM address_list WHERE address_id = ?";
             preparedStatement = con.prepareStatement(deleteAddress);
-            System.out.println(id);
+            System.out.println("Test delete: " + id);
             preparedStatement.setLong(1, id);
             preparedStatement.execute();
         } catch (SQLException e) {

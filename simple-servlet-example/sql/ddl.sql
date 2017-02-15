@@ -4,6 +4,6 @@ CREATE TABLE IF NOT EXISTS address_list (
   nachname VARCHAR(40) NOT NULL,
   strasse VARCHAR(70),
   hausnummer VARCHAR(10),
-  plz varchar(10),
+  plz varchar(5),
   ort VARCHAR(50)
 );

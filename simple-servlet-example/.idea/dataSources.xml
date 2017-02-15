@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="H2 - jdbc:h2:tcp://localhost:9092/default - AddressDB" uuid="98fa13b6-33ba-4baa-9095-efef30fdda88">
+      <driver-ref>h2.unified</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.h2.Driver</jdbc-driver>
+      <jdbc-url>jdbc:h2:file:$PROJECT_DIR$/out/artifacts/address_servlet/WEB-INF/database/AddressDB</jdbc-url>
+    </data-source>
+  </component>
+</project>
