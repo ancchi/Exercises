@@ -1,6 +1,7 @@
 package de.deutschepost.epost.servlet.persistence;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Interface
@@ -9,7 +10,7 @@ import java.util.List;
 public interface DataAccessObject<T> {
 
 
-    T findById(long id);
+    Optional<T> findById(long id);
 
     List<T> findAll();
 
@@ -20,6 +21,6 @@ public interface DataAccessObject<T> {
     void delete(long id);
 
     // ***Neu***
-    List<T> globalSearch (String searchTerm);  // soll alles finden, egal, was man eingibt
+    List<T> globalSearch(String searchTerm);  // soll alles finden, egal, was man eingibt
 
 }

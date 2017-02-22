@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static com.oracle.jrockit.jfr.ContentType.Address;
 
@@ -19,11 +20,11 @@ public class AddressDao extends AbstractDao<Address> {
 
 
     @Override
-    public Address findById(long id) {
+    public Optional<Address> findById(long id) {
         con = getConnection();
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        Address address = new Address();
+        Address address = null;
 
         try {
 
@@ -32,15 +33,15 @@ public class AddressDao extends AbstractDao<Address> {
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
 
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 final Address item = new Address(
-                resultSet.getLong(1),
-                resultSet.getString(2),
-                resultSet.getString(3),
-                resultSet.getString(4),
-                resultSet.getString(5),
-                resultSet.getString(6),
-                resultSet.getString(7)
+                        resultSet.getLong(1),
+                        resultSet.getString(2),
+                        resultSet.getString(3),
+                        resultSet.getString(4),
+                        resultSet.getString(5),
+                        resultSet.getString(6),
+                        resultSet.getString(7)
                 );
                 address = item;
             }
@@ -48,11 +49,10 @@ public class AddressDao extends AbstractDao<Address> {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-           closeConn(preparedStatement, resultSet);
+            closeConn(preparedStatement, resultSet);
         }
-        return address;
+        return Optional.ofNullable(address);  // NullPointer safe, es ist klar, dass potentiell keine Adresse vorhanden
     }
-
 
 
     @Override
@@ -77,7 +77,6 @@ public class AddressDao extends AbstractDao<Address> {
 
         return addressList;
     }
-
 
 
     @Override
@@ -109,7 +108,6 @@ public class AddressDao extends AbstractDao<Address> {
     }
 
 
-
     @Override
     public void update(Address entity) {
         con = getConnection();
@@ -135,7 +133,6 @@ public class AddressDao extends AbstractDao<Address> {
             closeConn(preparedStatement);
         }
     }
-
 
 
     @Override
@@ -169,41 +166,19 @@ public class AddressDao extends AbstractDao<Address> {
             preparedStatement.setLong(1, id);
             resultSet = preparedStatement.executeQuery();
 
-            while(resultSet.next()) {
+            while (resultSet.next()) {
                 idExists = resultSet.getInt(1);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
+        } finally {
+            closeConn(preparedStatement, resultSet);
         }
+
         return idExists;
     }
 
-
-       private void closeConn(PreparedStatement preparedStatement, ResultSet resultSet) {
-        try {
-            if (preparedStatement != null)
-                preparedStatement.close();
-            if (resultSet != null)
-                resultSet.close();
-            if (con != null)
-                con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    private void closeConn(PreparedStatement preparedStatement) {
-        try {
-            if (preparedStatement != null)
-                preparedStatement.close();
-            if (con != null)
-                con.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * Zusätzliche Methoden
@@ -232,19 +207,7 @@ public class AddressDao extends AbstractDao<Address> {
             preparedStatement.setString(6, searchTerm.toUpperCase());
             resultSet = preparedStatement.executeQuery();
 
-            while(resultSet.next()) {
-                Address searchItem = new Address(
-                        resultSet.getLong(1),
-                        resultSet.getString(2),
-                        resultSet.getString(3),
-                        resultSet.getString(4),
-                        resultSet.getString(5),
-                        resultSet.getString(6),
-                        resultSet.getString(7)
-                );
-                hits.add(searchItem);
-            }
-
+            hits = getfullResultset(resultSet);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -253,7 +216,6 @@ public class AddressDao extends AbstractDao<Address> {
 
         return hits;
     }
-
 
 
     public List<Address> searchByPrename(String prename) {
@@ -301,7 +263,6 @@ public class AddressDao extends AbstractDao<Address> {
     }
 
 
-
     public List<Address> searchByPrenameInsensitive(String searchItem) {
         List<Address> addressList = new ArrayList<>();
         con = getConnection();
@@ -321,7 +282,6 @@ public class AddressDao extends AbstractDao<Address> {
         }
         return addressList;
     }
-
 
 
     public List<Address> searchByLastnameInsensitive(String searchItem) {
@@ -361,5 +321,32 @@ public class AddressDao extends AbstractDao<Address> {
         }
         return addressList;
     }
+
+
+    private void closeConn(PreparedStatement preparedStatement, ResultSet resultSet) {
+        try {
+            if (preparedStatement != null)
+                preparedStatement.close();
+            if (resultSet != null)
+                resultSet.close();
+            if (con != null)
+                con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void closeConn(PreparedStatement preparedStatement) {
+        try {
+            if (preparedStatement != null)
+                preparedStatement.close();
+            if (con != null)
+                con.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

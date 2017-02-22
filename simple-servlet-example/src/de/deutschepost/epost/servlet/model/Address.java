@@ -11,7 +11,8 @@ public class Address {
     private String postcode;
     private String location;
 
-    public Address() {}
+    public Address() {
+    }
 
     public Address(long addressID, String prename, String lastName, String street, String streetNumber, String postcode, String location) {
         this.addressID = addressID;
@@ -56,7 +57,7 @@ public class Address {
     public void setPrename(String prename) {
         this.prename = prename;
     }
-    
+
     public String getStreet() {
         return street;
     }
@@ -90,7 +91,6 @@ public class Address {
     }
 
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -119,16 +119,12 @@ public class Address {
         return result;
     }
 
+
     @Override
     public String toString() {
-        return "Address{" +
-                "addressID=" + addressID + '\'' +
-                ", prename='" + prename + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", street='" + street + '\'' +
-                ", streetNumber='" + streetNumber + '\'' +
-                ", postcode='" + postcode + '\'' +
-                ", location='" + location + '\'' +
-                '}';
+        return prename + " " + lastName + "\n" +
+                street + " " + streetNumber + "\n" +
+                postcode + " " + location;
     }
+
 }

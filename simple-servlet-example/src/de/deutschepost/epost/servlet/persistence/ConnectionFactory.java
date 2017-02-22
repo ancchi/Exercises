@@ -6,10 +6,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 
-
 public class ConnectionFactory {
 
     String h2DBPath;
+
     public ConnectionFactory(String h2DBPath) {
         try {
             Class.forName(driverClasseName);
@@ -17,20 +17,17 @@ public class ConnectionFactory {
             e.printStackTrace();
         }
         this.h2DBPath = h2DBPath;
-        connectionUrl = "jdbc:h2:" + h2DBPath +";";
+        connectionUrl = "jdbc:h2:" + h2DBPath + ";";
     }
 
 
-
     static final private String driverClasseName = "org.h2.Driver"; //
-        final private String connectionUrl;
+    final private String connectionUrl;
 
     static final private String dbUser = "sa";
     static final private String dbPwd = "";
 
     private static ConnectionFactory connectionFactory = null;  // Singleton
-
-
 
 
     public Connection getConnection() throws SQLException {
