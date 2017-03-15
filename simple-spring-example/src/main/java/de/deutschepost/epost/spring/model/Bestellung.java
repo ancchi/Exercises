@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.sql.Date;
 import java.util.List;
 
+
 /**
  * Created by afischer on 09/03/2017.
  */
@@ -20,7 +21,8 @@ public class Bestellung {
     @Column(name = "DATE", nullable = false)
     private Date date;
 
-    @OneToMany(mappedBy = "bestellung")
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name = "bestellung_id_bestellung")
     private List<Artikel> listArtikel;
 
     @ManyToOne
@@ -55,6 +57,7 @@ public class Bestellung {
     public List<Artikel> getListArtikel() {
         return listArtikel;
     }
+
 
     public void setListArtikel(List<Artikel> listArtikel) {
         this.listArtikel = listArtikel;

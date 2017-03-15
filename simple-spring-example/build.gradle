@@ -44,3 +44,32 @@ compile("com.h2database:h2")
 compile("org.springframework.boot:spring-boot-starter-jdbc")
 
 }
+
+
+task h2(type: JavaExec){
+    main = 'org.h2.tools.Server'
+    Classpath = sourceSets.main.compileClasspath
+    args '-?'
+
+}
+
+
+task runH2Server() {
+
+    doFirst {
+        println 'Starting H2 server process via ant (fork:true, spawn:true). JDBC connection is: jdbc:h2:tcp://localhost/~/gcc'
+    }
+
+    ant.java(classname: "org.h2.tools.Server", fork: true, spawn: true, classpath: sourceSets.main.compileClasspath.asPath){
+        arg(value: "-tcp")
+    }
+}
+
+task killH2Server(type: Exec) {
+
+    description "Kills all H2 servers via unix cmd line magic: 'ps -ef | grep -i org.h2.tools.Server | grep -v grep | awk '{print \$2}' | xargs kill -9'"
+
+    // always run this task
+    outputs.upToDateWhen { false }
+    commandLine "bash", "-c", "ps -ef | grep -i org.h2.tools.Server | grep -v grep | awk '{print \$2}' | xargs kill -9"
+}

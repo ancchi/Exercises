@@ -1,5 +1,7 @@
 package de.deutschepost.epost.spring.model;
 
+import org.springframework.data.repository.cdi.Eager;
+
 import javax.persistence.*;
 
 /**
@@ -20,17 +22,6 @@ public class Artikel {
     @Column(name = "ARTIKEL_NAME", nullable = false)
     private String artikelName;
 
-    @ManyToOne
-    private Bestellung bestellung;
-
-
-    public Bestellung getBestellung() {
-        return bestellung;
-    }
-
-    public void setBestellung(Bestellung bestellung) {
-        this.bestellung = bestellung;
-    }
 
     public long getIdArtikel() {
         return idArtikel;
@@ -55,8 +46,4 @@ public class Artikel {
     public void setArtikelName(String artikelName) {
         this.artikelName = artikelName;
     }
-
-
-
-
 }

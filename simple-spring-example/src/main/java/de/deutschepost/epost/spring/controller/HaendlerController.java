@@ -13,7 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 /**
  * Created by afischer on 09/03/2017.
  */
-@RestController
+@RestController  // mit Controller probieren ... in Bezug auf ResponsBody
 @RequestMapping("deliverer")
 public class HaendlerController {
 
@@ -73,7 +73,7 @@ public class HaendlerController {
     /**
      * @ResponseBody und RequestBody
      *
-     * @ResponseBody sorgt dafür, dass der Response den Body für das HTTP-Response darstellt, typischerweise als JSON oder XML
+     * @ResponseBody sorgt dafür, dass spring.jpa.der Response den Body für das HTTP-Response darstellt, typischerweise als JSON oder XML
      * den Return-Type für den @ResponseBody muss man bei @RequestMapping mit produce angeben
      * man kann mithilfe von @ResponseBody Objekt-Entitys als Response zurückgeben - allerdings kann man an diesen Response keine
      * Statusmeldung hängen, daher ist als Rückgabetyp ResponseEntity<T> besser geeignet
@@ -82,12 +82,14 @@ public class HaendlerController {
      * mit einem HttpMessageConverter wird eine HTTP-Anfrage in ein Objekt und ein Objekt in ein HTTP-Response-Body
      * umgewandelt
      *
+     * Restcontroller setzt ResponseBody voraus, dewswegen muss man es nicht hinschreiben
      *
      */
 
     @RequestMapping(method = RequestMethod.GET, value = "/overview", produces = MediaType.APPLICATION_JSON_VALUE)  // MediaType richtig??
     @ResponseBody
     public Iterable<Haendler> ueberblick() {
+
         return haendlerRepository.findAll();
     }
 
