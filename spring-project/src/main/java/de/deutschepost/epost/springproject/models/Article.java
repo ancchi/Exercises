@@ -1,0 +1,45 @@
+package de.deutschepost.epost.springproject.models;
+
+import javax.persistence.*;
+import java.util.List;
+
+/**
+ * ein Article von derselben Art kann in mehreren Bestellungen sein und eine Purchase
+ * kann mehrere Article beihnhalten -> m:n-Beziehung
+ */
+@Entity
+@Table(name = "ARTICLE")
+public class Article {
+
+    @Id
+    @Column(name = "ID_ARTICLE", nullable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long idArticle;
+
+    @Column(name = "PROPERTY", nullable = false)
+    private String property;
+
+    @ManyToMany(mappedBy = "articleList")
+    private List<Purchase> purchases;
+
+
+    public long getIdArticle() {
+        return idArticle;
+    }
+
+    public void setIdArticle(long idArticle) {
+        this.idArticle = idArticle;
+    }
+
+    public String getProperty() {
+        return property;
+    }
+
+    public void setProperty(String property) {
+        this.property = property;
+    }
+
+
+
+
+}

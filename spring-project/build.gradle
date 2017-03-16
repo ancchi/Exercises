@@ -1,0 +1,75 @@
+buildscript {
+    repositories {
+        maven { url "http://javarepo.bis.epost-dev.de/nexus/content/groups/public" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.2.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+
+jar {
+    baseName = 'spring-example'
+    version =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+    // maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+dependencies {
+// tag::jetty[]
+compile("org.springframework.boot:spring-boot-starter-web") {
+    exclude module: "spring-boot-starter-tomcat"
+}
+compile("org.springframework.boot:spring-boot-starter-jetty")
+// end::jetty[]
+// tag::actuator[]
+compile("org.springframework.boot:spring-boot-starter-actuator")
+// end::actuator[]
+testCompile("junit:junit")
+testCompile('org.mockito:mockito-all:1.10.19')
+
+compile("org.springframework.boot:spring-boot-starter-data-jpa")
+compile("com.h2database:h2")
+
+compile("org.springframework.boot:spring-boot-starter-jdbc")
+
+}
+
+
+task h2(type: JavaExec){
+    main = 'org.h2.tools.Server'
+     Classpath = sourceSets.main.compileClasspath
+     args '-?'
+
+}
+
+
+task runH2Server() {
+
+    doFirst {
+        println 'Starting H2 server process via ant (fork:true, spawn:true). JDBC connection is: jdbc:h2:tcp://localhost/~/gcc'
+    }
+
+    ant.java(classname: "org.h2.tools.Server", fork: true, spawn: true, classpath: sourceSets.main.compileClasspath.asPath){
+        arg(value: "-tcp")
+    }
+}
+
+task killH2Server(type: Exec) {
+
+    description "Kills all H2 servers via unix cmd line magic: 'ps -ef | grep -i org.h2.tools.Server | grep -v grep | awk '{print \$2}' | xargs kill -9'"
+
+    // always run this task
+    outputs.upToDateWhen { false }
+    commandLine "bash", "-c", "ps -ef | grep -i org.h2.tools.Server | grep -v grep | awk '{print \$2}' | xargs kill -9"
+}
