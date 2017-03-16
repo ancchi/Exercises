@@ -19,8 +19,29 @@ public class Article {
     @Column(name = "PROPERTY", nullable = false)
     private String property;
 
+
+    @Column(name = "DESCRIPTION", nullable = false)
+    private String description;
+
     @ManyToMany(mappedBy = "articleList")
     private List<Purchase> purchases;
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public List<Purchase> getPurchases() {
+        return purchases;
+    }
+
+    public void setPurchases(List<Purchase> purchases) {
+        this.purchases = purchases;
+    }
 
 
     public long getIdArticle() {

@@ -13,15 +13,15 @@ public class Purchase {
 
 
     @Id
-    @Column(name = "PURCHASE", nullable = false)
+    @Column(name = "ID_PURCHASE", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long idPurchase;
 
-    @Column(name = "PURCHASE", nullable = false)
+    @Column(name = "PURCHASE_DATE", nullable = false)
     private Date purchaseDate;
 
     @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "PURCHASE_ARTICLE", joinColumns = {@JoinColumn (name = "ID_PURCHASE")}, inverseJoinColumns = {@JoinColumn(name = "ID_Article")})
+    @JoinTable(name = "PURCHASE_ARTICLE", joinColumns = {@JoinColumn (name = "ID_PURCHASE")}, inverseJoinColumns = {@JoinColumn(name = "ID_ARTICLE")})
     private List<Article> articleList;
 
     public long getIdPurchase() {
