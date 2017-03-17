@@ -20,6 +20,7 @@ public class Purchase {
     @Column(name = "PURCHASE_DATE", nullable = false)
     private Date purchaseDate;
 
+    // Unidirectional ManyToMany-Beziehung -> dadurch werden in der Ausgabe der Tabellen nicht ständig die Listen von den Listen aufgerufen!!!
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "PURCHASE_ARTICLE", joinColumns = {@JoinColumn (name = "ID_PURCHASE")}, inverseJoinColumns = {@JoinColumn(name = "ID_ARTICLE")})
     private List<Article> articleList;

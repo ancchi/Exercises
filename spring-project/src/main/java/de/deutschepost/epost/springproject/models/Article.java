@@ -23,9 +23,17 @@ public class Article {
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 
-    @ManyToMany(mappedBy = "articleList")
-    private List<Purchase> purchases;
+//    @ManyToMany(mappedBy = "articleList")
+//    private List<Purchase> purchases;
 
+
+//    public List<Purchase> getPurchases() {
+//        return purchases;
+//    }
+//
+//    public void setPurchases(List<Purchase> purchases) {
+//        this.purchases = purchases;
+//    }
 
     public String getDescription() {
         return description;
@@ -35,13 +43,7 @@ public class Article {
         this.description = description;
     }
 
-    public List<Purchase> getPurchases() {
-        return purchases;
-    }
 
-    public void setPurchases(List<Purchase> purchases) {
-        this.purchases = purchases;
-    }
 
 
     public long getIdArticle() {
