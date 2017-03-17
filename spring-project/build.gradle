@@ -27,14 +27,13 @@ targetCompatibility = 1.8
 
 dependencies {
 // tag::jetty[]
-compile("org.springframework.boot:spring-boot-starter-web") {
-    exclude module: "spring-boot-starter-tomcat"
-}
-compile("org.springframework.boot:spring-boot-starter-jetty")
+compile("org.springframework.boot:spring-boot-starter-web")
 // end::jetty[]
 // tag::actuator[]
 compile("org.springframework.boot:spring-boot-starter-actuator")
 // end::actuator[]
+compile("javax.servlet:jstl")
+compile("org.apache.tomcat.embed:tomcat-embed-jasper")  // ??
 testCompile("junit:junit")
 testCompile('org.mockito:mockito-all:1.10.19')
 
@@ -43,6 +42,11 @@ compile("com.h2database:h2")
 
 compile("org.springframework.boot:spring-boot-starter-jdbc")
 
+    // neu für Web
+    //compile("org.springframework.boot:spring-boot-starter-parent:1.4.2.RELEASE")
+    //compile("org.springframework.boot:spring-boot-starter-tomcat") // ??
+    compile("org.webjars:bootstrap:3.3.7")  // verwendet für die Bootstrap Navigation Bar
+    //compile("org.springframework.boot:spring-boot-maven-plugin")
 }
 
 
